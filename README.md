@@ -1,42 +1,62 @@
-# The Last Menagerie — Grand Revision
+# The Last Menagerie — Echo Stage v3
 
-Roguelike de cartas ritualista diseñado para móvil. Una derrota termina la run. Cada Acto genera un mapa ramificado nuevo y las criaturas pueden acumular memoria, Despertares e Injertos durante esa run.
+Roguelike de cartas ritualista diseñado para móvil. Una derrota termina la run. Cada Acto genera un mapa ramificado nuevo y las presencias del reparto pueden acumular memoria, Despertares e Injertos durante esa run.
 
-## Grand Revision
+## Identidad v3
 
-- nuevo bestiario vectorial generado en tiempo real: ya no depende de los SVG geométricos antiguos;
-- dirección visual unificada para criaturas Feral, Velo, Hierro y Ofrendas;
-- animación dedicada de **Despertar**;
-- las bajas y Despertares se sincronizan con la carta real de la run;
-- las criaturas aliadas muertas o sacrificadas entran ahora en el descarte de combate y pueden volver al mazo al barajar;
-- curva inicial de dificultad suavizada;
-- escalado enemigo más gradual;
-- aparición de refuerzos menos agresiva;
-- recompensas de Fragmentos aumentadas y precios de tienda reajustados;
-- varias criaturas iniciales frágiles han recibido pequeños ajustes de Vida;
-- interfaz, tablero, mano, mapa e intenciones enemigas pulidos.
+La economía principal ya no usa Sangre/Huesos.
+
+- **Foco**: energía temporal del turno. Se reinicia cada turno y puede aumentar mediante Retirada, Cadenza, reliquias y pactos.
+- **Eco**: energía persistente del combate. Se genera cuando una presencia abandona la escena y paga a las entidades más extrañas del reparto.
+- **Retirada**: una vez por turno puedes sacar una criatura aliada de escena. No muere: vuelve al descarte y produce Foco + Eco.
+- **Cadenza**: cada cuarto impacto directo genera Presión adicional y concede un Encore de Foco para el siguiente turno.
+
+## Progresión del mapa
+
+- la primera fila de cada Acto siempre contiene encuentros, para que la run empiece con recursos y decisiones reales;
+- los nodos de soporte aparecen después;
+- el Intermediario no aparece como primera decisión y requiere que ya hayas podido ganar Fragmentos;
+- Alfa, Contratos, Utilería y Presagios aparecen progresivamente en filas más profundas;
+- cada Acto vuelve a generar conexiones y nodos.
+
+## Dirección artística
+
+- bestiario rediseñado como presencias teatrales originales, no como animales geométricos;
+- tres escuelas visuales: **Instinto**, **Veladura** y **Bastidor**;
+- retratos SVG generativos con niebla, grano, halos, ojos, fracturas y variaciones por personaje;
+- el propio retrato cambia visualmente al Despertar;
+- Foco y Eco tienen iconografía física propia;
+- animaciones específicas para Entrada, Retirada, impactos, muerte, Cadenza y Despertar;
+- escenas narrativas más largas y tocables para que puedas terminar de leerlas antes de continuar.
+
+## Balance v3
+
+- encuentros iniciales menos opresivos;
+- menos enemigos y refuerzos en los primeros Actos;
+- escalado de estadísticas más tardío;
+- Presión inicial favorable en encuentros normales;
+- sistema de margen: si tu mesa está vacía y no puedes pagar ninguna carta, la escena concede +1 Foco;
+- más Fragmentos por victoria;
+- tienda reajustada;
+- los Guardianes siguen siendo peligrosos, pero la dificultad crece por reglas y composición, no solo por estadísticas.
 
 ## Archivos activos
 
-- `index.html` — estructura
+- `index.html` — interfaz y estructura actual
 - `game.css` — estilos base
-- `grand.css` — revisión visual
-- `art.js` — sistema de ilustraciones
-- `boot.js` — arranque del juego
-- `balance.js` — ajustes de criaturas
-- `patch-loader.js` — correcciones de lógica y balance
-- `data.gz.b64` / `game.gz.b64` — fuentes del juego empaquetadas para el despliegue estático
+- `boot-v3.js` — cargador de Echo Stage v3
+- `bundle-v3.gz.b64` — arte, datos, lógica y estilos v3 empaquetados
 
-Los SVG antiguos que puedan seguir apareciendo en el historial/repositorio son legado de la versión anterior y ya no son necesarios para renderizar las criaturas.
+Los archivos de revisiones anteriores permanecen en el historial del repositorio, pero `index.html` ya no los carga.
 
 ## Jugar desde GitHub Pages
 
 1. Abre **Settings → Pages**.
 2. En **Source**, selecciona **Deploy from a branch**.
-3. Selecciona la rama **main** y la carpeta **/ (root)**.
+3. Selecciona **main** y **/ (root)**.
 4. Guarda.
-5. GitHub publicará el juego en:
+5. El juego quedará en:
 
 `https://papimatcoding.github.io/the-last-menagerie/`
 
-Cuando hagamos cambios en `main`, GitHub Pages actualizará esa misma URL automáticamente después del despliegue.
+Cada cambio futuro que hagamos directamente en `main` se desplegará en esa misma URL.
