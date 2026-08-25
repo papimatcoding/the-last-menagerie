@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190">
+<defs>
+  <radialGradient id="halo" cx="50%" cy="42%" r="55%">
+    <stop offset="0" stop-color="#c8a96e" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#c8a96e" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect width="200" height="190" rx="14" fill="#0d0a08"/>
+<circle cx="100" cy="92" r="78" fill="url(#halo)"/>
+<g fill="none" stroke="#bda06f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M28 124c38-69 96-79 142-43-34 6-51 22-60 51-21 27-50 35-82 22Z"/><path d="m134 70 55 8-42 22M65 151l-20 24m44-26-4 27M79 102h3"/>
+</g>
+<circle cx="100" cy="92" r="72" fill="none" stroke="#bda06f" stroke-opacity=".08"/>
+<path d="M30 163H170" stroke="#bda06f" stroke-opacity=".15"/>
+<text x="100" y="180" fill="#bda06f" fill-opacity=".55" font-size="7" text-anchor="middle" font-family="Georgia,serif" letter-spacing="1.8">HOLLOW CROW</text>
+</svg>

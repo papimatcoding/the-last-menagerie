@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#090706">
+<title>The Last Menagerie — Director's Cut</title>
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="fx"></canvas>
+
+  <section id="menuScreen" class="screen">
+    <div class="menu-shell">
+      <div class="seal">IV</div>
+      <div class="eyebrow">A ritual creature-card roguelike</div>
+      <h1>THE LAST<br><em>MENAGERIE</em></h1>
+      <p class="lead">Construye un reparto de criaturas que recuerdan sus bajas, despiertan, acumulan cicatrices y heredan rasgos de otras cartas.</p>
+      <div class="metrics">
+        <div><strong id="bestDepth">0</strong><span>Profundidad</span></div>
+        <div><strong id="bestBoss">0</strong><span>Guardianes</span></div>
+        <div><strong id="metaAsh">0</strong><span>Ceniza</span></div>
+      </div>
+      <button id="newRunBtn" class="primary">NUEVA REPRESENTACIÓN</button>
+      <div class="menu-row">
+        <button id="rulesBtn">REGLAS</button>
+        <button id="backstageBtn">CAMERINO</button>
+        <button id="soundBtn">SONIDO: NO</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="oathScreen" class="screen hidden">
+    <div class="panel">
+      <div class="eyebrow">Prólogo</div>
+      <h2>Elige un juramento</h2>
+      <p class="quote">«No elijas la criatura que quieres ser. Elige la forma en que estás dispuesto a perderla.»</p>
+      <div id="oathGrid" class="choice-grid"></div>
+    </div>
+  </section>
+
+  <section id="mapScreen" class="screen map-screen hidden">
+    <header class="topbar">
+      <b>THE MENAGERIE</b>
+      <span class="spacer"></span>
+      <span>ACTO <b id="actNum">I</b></span>
+      <span>FRAG. <b id="fragTxt">0</b></span>
+      <button id="deckBtn" class="square">DECK</button>
+    </header>
+    <main class="map-main">
+      <section id="actCard" class="act-card"></section>
+      <section class="map-card">
+        <div class="section-title">Ruta de este Acto</div>
+        <div id="mapWrap" class="map-wrap">
+          <svg id="pathSvg" viewBox="0 0 360 600" aria-label="Mapa de ruta"></svg>
+          <div id="nodeLayer" class="node-layer"></div>
+        </div>
+      </section>
+      <section class="curator-note">
+        <span>Nota del Curador</span>
+        <p id="curatorLine"></p>
+      </section>
+    </main>
+  </section>
+
+  <section id="battleScreen" class="screen battle-screen hidden">
+    <div class="table-grain"></div>
+    <header class="battle-top">
+      <div>
+        <span class="tiny-label">Sangre</span>
+        <b id="bloodTxt">0</b>
+      </div>
+      <div>
+        <span class="tiny-label">Huesos</span>
+        <b id="bonesTxt">0</b>
+      </div>
+      <div class="battle-title">
+        <b id="battleTitle">ENCUENTRO</b>
+        <span id="turnTxt">Turno 1</span>
+      </div>
+      <button id="inspectBtn" class="square">?</button>
+    </header>
+
+    <div class="pressure-row">
+      <span>CEDE</span>
+      <div class="pressure-track"><div id="pressureFill"></div><div id="pressureKnob"></div></div>
+      <div id="cadence" class="cadence" aria-label="Cadencia"></div>
+    </div>
+
+    <main class="battlefield">
+      <div id="enemySide" class="side enemy-side"></div>
+      <div id="playerSide" class="side player-side"></div>
+    </main>
+
+    <div id="drawPrompt" class="draw-prompt hidden">
+      <button id="drawBeastBtn"><b>BESTIA</b><span>Roba de tu baraja</span></button>
+      <button id="drawCandleBtn"><b>VELA</b><span>Ofrenda de coste 0</span></button>
+    </div>
+
+    <div id="contextBar" class="context-bar">
+      <div>
+        <b id="contextTitle">Selecciona una carta</b>
+        <span id="contextText">Las cartas jugables están resaltadas.</span>
+      </div>
+      <button id="sacrificeBtn" class="danger hidden">SACRIFICAR</button>
+      <button id="cancelBtn" class="hidden">CANCELAR</button>
+      <button id="endTurnBtn" class="primary compact">FIN TURNO</button>
+    </div>
+
+    <div id="hand" class="hand"></div>
+    <div id="toast" class="toast"></div>
+    <div id="cadenzaFlash" class="cadenza-flash">IV · CADENZA</div>
+  </section>
+
+  <section id="deathScreen" class="screen hidden">
+    <div class="panel death-panel">
+      <div class="eyebrow">Fin de la representación</div>
+      <h2>La mesa ha recuperado el control.</h2>
+      <p id="deathQuote" class="quote"></p>
+      <div class="metrics">
+        <div><strong id="deathDepth">0</strong><span>Profundidad</span></div>
+        <div><strong id="deathBosses">0</strong><span>Guardianes</span></div>
+        <div><strong id="deathAsh">0</strong><span>Ceniza</span></div>
+      </div>
+      <button id="restartBtn" class="primary">NUEVA RUN</button>
+      <button id="homeBtn">VOLVER AL MENÚ</button>
+    </div>
+  </section>
+
+  <div id="scene" class="scene hidden">
+    <div>
+      <span id="sceneEyebrow"></span>
+      <h2 id="sceneTitle"></h2>
+      <p id="sceneQuote"></p>
+      <small id="sceneRule"></small>
+    </div>
+  </div>
+
+  <div id="modal" class="modal hidden"></div>
+</div>
+<script src="js/data.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

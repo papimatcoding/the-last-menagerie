@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190">
+<defs>
+  <radialGradient id="halo" cx="50%" cy="42%" r="55%">
+    <stop offset="0" stop-color="#c8a96e" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#c8a96e" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect width="200" height="190" rx="14" fill="#0d0a08"/>
+<circle cx="100" cy="92" r="78" fill="url(#halo)"/>
+<g fill="none" stroke="#bda06f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M39 121c4-48 32-72 65-69 37 4 58 34 56 73-2 34-27 49-61 48-36-1-63-18-60-52Z"/><path d="M74 112h3m47 0h3M88 129h25M50 133 18 146m132-13 32 13"/><path d="M72 60 63 34m56 26 9-26"/>
+</g>
+<circle cx="100" cy="92" r="72" fill="none" stroke="#bda06f" stroke-opacity=".08"/>
+<path d="M30 163H170" stroke="#bda06f" stroke-opacity=".15"/>
+<text x="100" y="180" fill="#bda06f" fill-opacity=".55" font-size="7" text-anchor="middle" font-family="Georgia,serif" letter-spacing="1.8">GRAVE MOLE</text>
+</svg>
