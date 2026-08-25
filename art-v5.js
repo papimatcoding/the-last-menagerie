@@ -1,0 +1,56 @@
+window.MENAGERIE_ART=(()=>{
+ const P={Veladura:['#09080d','#20162b','#79678f','#ded2c2','#c0a1d3'],Bastidor:['#090907','#211d14','#9a8157','#e3cea2','#d7ad66'],Instinto:['#0b0707','#251311','#a24f43','#e5bf97','#df7858'],Figurante:['#0a0807','#20160f','#a77d45','#e6cda3','#dda85a']};
+ const D={
+  ashwing:['wraith','veil'],iron_cub:['puppet','rivets'],glass_adder:['serpent','glass'],red_hare:['runner','ears'],moss_boar:['brute','tusks'],hollow_crow:['oracle','beak'],saint_shell:['relic','shell'],marrow_wolf:['hound','ribs'],blind_weaver:['puppet','threads'],threshold_stag:['stag','antlers'],bell_golem:['bell','belfry'],ink_owl:['oracle','quill'],solar_hyena:['hound','sun'],rune_crab:['crab','runes'],black_ram:['brute','horns'],veil_lynx:['runner','veil'],choir_eel:['serpent','strings'],ivory_mantis:['puppet','blades'],lantern_fox:['hound','lantern'],salt_hound:['hound','spines'],mirror_swan:['winged','mirror'],ash_beetle:['beetle','plates'],thorn_elk:['stag','thorns'],mourning_bat:['winged','wings'],pale_seraph:['seraph','halo'],grave_mole:['burrow','hood'],cinder_viper:['serpent','flame'],porcelain_ape:['ape','cracks'],figurant:['figurant','none'],candle:['figurant','none']
+ };
+ const enc=s=>'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(s),seed=s=>[...String(s)].reduce((a,c)=>(a*97+c.charCodeAt(0))>>>0,31);
+ function defs(p,w){return `<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="${p[1]}"/><stop offset="1" stop-color="${p[0]}"/></linearGradient><linearGradient id="iv" x2="1" y2="1"><stop stop-color="${p[3]}"/><stop offset=".5" stop-color="${p[2]}"/><stop offset="1" stop-color="#211a1d"/></linearGradient><linearGradient id="cloth" x2="1" y2="1"><stop stop-color="${p[2]}"/><stop offset="1" stop-color="#08070a"/></linearGradient><radialGradient id="halo"><stop stop-color="${p[4]}" stop-opacity="${Math.min(.4,.12+w*.07)}"/><stop offset="1" stop-opacity="0"/></radialGradient><filter id="b"><feGaussianBlur stdDeviation="7"/></filter><filter id="g"><feGaussianBlur stdDeviation="2"/></filter></defs>`}
+ function stage(p,s,w){let k=s%3;return `<rect width="240" height="300" fill="url(#bg)"/><polygon points="0,0 48,0 64,300 0,300" fill="#2e0c18" opacity=".28"/><polygon points="240,0 192,0 176,300 240,300" fill="#2e0c18" opacity=".28"/><polygon points="${80+k*8},0 ${160-k*8},0 181,246 57,246" fill="${p[3]}" opacity=".025"/><ellipse cx="120" cy="148" rx="98" ry="118" fill="url(#halo)"/><ellipse cx="120" cy="246" rx="76" ry="13" fill="#000" opacity=".52"/>${w?`<circle cx="120" cy="144" r="101" fill="none" stroke="${p[4]}" stroke-opacity="${.08+w*.04}" stroke-dasharray="2 9"/>`:''}`}
+ function eye(p,x,y,r=3){return `<circle cx="${x}" cy="${y}" r="${r+5}" fill="${p[4]}" opacity=".11" filter="url(#g)"/><circle cx="${x}" cy="${y}" r="${r}" fill="${p[4]}"/>`}
+ function face(p,k,x=120,y=92,s=1){let b=`<g transform="translate(${x} ${y}) scale(${s})"><polygon points="-25,-31 0,-43 26,-28 22,18 0,37 -22,18" fill="url(#iv)" stroke="${p[3]}" stroke-opacity=".22"/>`;
+  if(k==='beak'||k==='quill')b+=`<polygon points="0,-4 42,8 2,19" fill="${p[3]}" opacity=".65"/>${eye(p,-9,-8)}${eye(p,9,-8)}`;
+  else if(k==='glass'||k==='runes'||k==='shell')b+=`<circle cx="0" cy="-2" r="12" fill="#09080a"/>${eye(p,0,-2,4)}<path d="M-13 19H13" stroke="${p[2]}"/>`;
+  else if(k==='cracks')b+=`${eye(p,-9,-6)}${eye(p,9,-6)}<path d="M0-40L4-13 -5 4 5 27M17-22L5-9 14 6M-16 2L-5 9-12 22" stroke="#734942" stroke-width="1.5" fill="none"/>`;
+  else b+=`<path d="M-15-7L-5-3M15-7L5-3" stroke="#09080a" stroke-width="5" stroke-linecap="round"/>${eye(p,-9,-5)}${eye(p,9,-5)}`;
+  return b+'</g>' }
+ function prop(p,k){const c=p[2],l=p[3],h=p[4];let m={
+  veil:`<path d="M74 84Q48 122 59 214M166 82Q195 122 177 214" fill="none" stroke="${c}" stroke-width="13" opacity=".2"/>`,
+  rivets:`<g fill="${h}" opacity=".62"><circle cx="88" cy="157" r="3"/><circle cx="152" cy="157" r="3"/><circle cx="105" cy="194" r="3"/><circle cx="136" cy="194" r="3"/></g>`,
+  glass:`<g fill="${l}" opacity=".24"><polygon points="82,85 95,36 106,91"/><polygon points="113,78 124,22 136,83"/><polygon points="145,86 169,45 158,100"/></g>`,
+  ears:`<polygon points="151,90 149,35 171,90" fill="${c}"/><polygon points="171,91 191,45 187,105" fill="${c}" opacity=".65"/>`,
+  tusks:`<path d="M174 139q30 5 22 29q-4 12-18 10" fill="none" stroke="${l}" stroke-width="5"/>`,
+  beak:`<path d="M93 66L79 31M107 59L104 23" stroke="${c}" stroke-width="4"/>`,
+  shell:`<ellipse cx="120" cy="151" rx="70" ry="91" fill="none" stroke="${l}" stroke-width="7" opacity=".17"/>`,
+  ribs:`<g fill="none" stroke="${l}" stroke-opacity=".2">${[0,1,2,3].map(i=>`<path d="M${90+i*15} 136q-10 31 2 55"/>`).join('')}</g>`,
+  threads:`<g stroke="${l}" stroke-opacity=".17">${[70,94,120,146,170].map(x=>`<path d="M${x} 2L${x+(120-x)*.12} 175"/>`).join('')}</g>`,
+  antlers:`<g fill="none" stroke="${l}" stroke-width="5" opacity=".43"><path d="M100 74Q78 45 74 17M89 47L66 37M83 33L91 14M140 74Q162 44 168 16M152 46L176 35M158 31L151 13"/></g>`,
+  belfry:`<path d="M84 82Q91 37 120 23Q150 37 157 82" fill="none" stroke="${l}" stroke-width="7" opacity=".3"/><circle cx="120" cy="49" r="10" fill="${h}" opacity=".3"/>`,
+  quill:`<path d="M145 81Q180 30 193 25Q180 65 152 99" fill="${l}" opacity=".2"/><path d="M152 83L187 31" stroke="${h}" opacity=".4"/>`,
+  sun:`<circle cx="167" cy="94" r="22" fill="none" stroke="${h}" opacity=".35"/><g stroke="${h}" opacity=".4"><path d="M167 57v20M167 112v21M130 94h20M184 94h21M142 69l14 14M181 108l14 14"/></g>`,
+  runes:`<g fill="none" stroke="${h}" stroke-width="2" opacity=".45"><path d="M94 121h18l-11 22 19 17M144 113l-9 28 17 12-15 23"/></g>`,
+  horns:`<g fill="none" stroke="${l}" stroke-width="7" opacity=".4"><path d="M102 80Q59 48 55 83Q57 109 86 106"/><path d="M138 80Q181 48 185 83Q183 109 154 106"/></g>`,
+  strings:`<g stroke="${l}" stroke-opacity=".18">${[82,101,120,139,158].map(x=>`<path d="M${x} 43Q120 148 ${x} 231"/>`).join('')}</g>`,
+  blades:`<polygon points="77,154 33,226 91,189" fill="${l}" opacity=".32"/><polygon points="163,154 207,226 149,189" fill="${l}" opacity=".32"/>`,
+  lantern:`<g transform="translate(47 165)"><path d="M0-20V4" stroke="${l}"/><rect x="-12" y="3" width="24" height="34" rx="4" fill="#1b1009" stroke="${l}" stroke-opacity=".34"/>${eye(p,0,20,4)}</g>`,
+  spines:`<g fill="${l}" opacity=".18">${[0,1,2,3,4].map(i=>`<polygon points="${88+i*18},122 ${98+i*18},77 ${108+i*18},124"/>`).join('')}</g>`,
+  mirror:`<ellipse cx="120" cy="148" rx="86" ry="111" fill="none" stroke="${l}" stroke-opacity=".15"/><path d="M120 36V257" stroke="${l}" stroke-opacity=".07"/>`,
+  plates:`<g fill="none" stroke="${l}" stroke-opacity=".14"><ellipse cx="120" cy="151" rx="44" ry="56"/><ellipse cx="120" cy="151" rx="62" ry="78"/><ellipse cx="120" cy="151" rx="78" ry="96"/></g>`,
+  thorns:`<g stroke="${c}" stroke-width="4" opacity=".4"><path d="M91 84L60 47 67 91M151 84L183 44 176 91M74 137L39 118M166 137L203 116"/></g>`,
+  wings:`<polygon points="99,130 32,66 57,188 93,207" fill="${c}" opacity=".28"/><polygon points="141,130 208,66 183,188 147,207" fill="${c}" opacity=".28"/>`,
+  halo:`<circle cx="120" cy="69" r="43" fill="none" stroke="${l}" stroke-width="3" opacity=".33"/><circle cx="120" cy="69" r="31" fill="none" stroke="${h}" stroke-dasharray="3 7" opacity=".32"/>`,
+  hood:`<path d="M78 108Q83 51 120 40Q158 50 163 108L143 92Q120 78 96 93Z" fill="#08070a" stroke="${c}" stroke-opacity=".3"/>`,
+  flame:`<path d="M151 86q22-35 11-60q34 31 17 70q-8 18-28 24" fill="${h}" opacity=".24"/>`,
+  cracks:`<g stroke="#704944" stroke-width="1.5" opacity=".55"><path d="M119 49l5 28-10 15 11 25M142 69l-14 14 10 17M101 76l13 10-8 18"/></g>`,none:''
+ };return m[k]||'' }
+ function body(p,t,k){
+  if(t==='wraith'||t==='oracle')return `<g><polygon points="120,111 68,219 98,205 112,242 121,214 135,243 151,204 183,219" fill="#08070b"/><polygon points="120,115 89,199 115,184 121,224 142,183 160,201" fill="url(#cloth)" opacity=".84"/><polygon points="84,153 48,193 84,181 105,157" fill="${p[2]}" opacity=".4"/><polygon points="156,153 194,190 158,181 136,157" fill="${p[2]}" opacity=".35"/>${face(p,k==='beak'||k==='quill'?k:'blank')}</g>`;
+  if(t==='puppet'||t==='ape')return `<g><polygon points="94,129 146,129 161,198 134,220 106,220 79,198" fill="url(#iv)"/><polygon points="96,151 54,177 63,196 104,176" fill="${p[2]}" opacity=".48"/><polygon points="144,151 189,176 179,197 136,176" fill="${p[2]}" opacity=".44"/><polygon points="105,211 92,252 108,253 121,219" fill="#090809"/><polygon points="135,211 149,252 132,253 119,219" fill="#090809"/>${face(p,k==='cracks'?'cracks':'blank')}</g>`;
+  if(t==='runner'||t==='hound'||t==='brute'||t==='stag')return `<g><polygon points="48,181 73,132 118,116 161,128 196,163 176,204 124,217 72,205" fill="#090809"/><polygon points="78,137 120,119 153,135 132,170 93,164" fill="url(#cloth)"/><polygon points="146,131 172,100 201,116 184,151 160,157" fill="url(#iv)"/><polygon points="83,203 68,247 88,247 105,210" fill="#080708"/><polygon points="145,203 150,246 171,245 162,195" fill="#080708"/>${eye(p,177,121)}</g>`;
+  if(t==='serpent')return `<g><path d="M62 214Q94 174 77 143Q62 116 94 94Q121 75 151 98Q178 120 155 146Q139 166 166 192Q184 211 165 234Q146 257 113 239Q90 226 62 214Z" fill="#09080a" stroke="${p[2]}" stroke-opacity=".34"/><path d="M79 208Q108 178 94 149Q83 126 108 111Q132 96 154 115Q166 128 151 146" fill="none" stroke="${p[2]}" stroke-width="18" opacity=".28"/><polygon points="142,109 170,88 193,108 177,138 151,139" fill="url(#iv)"/>${eye(p,174,111)}</g>`;
+  if(t==='winged'||t==='seraph')return `<g><polygon points="120,112 91,160 99,218 120,240 142,216 149,160" fill="#09080b"/><polygon points="101,140 38,84 59,197 98,182" fill="${p[2]}" opacity=".3"/><polygon points="139,140 202,84 181,197 142,182" fill="${p[2]}" opacity=".3"/>${face(p,t==='seraph'?'blank':'blank',120,94,.94)}</g>`;
+  if(t==='relic'||t==='bell'||t==='crab'||t==='beetle')return `<g><polygon points="120,61 177,93 187,158 158,219 94,228 54,180 57,113" fill="#090809"/><polygon points="120,80 156,105 161,158 137,200 98,204 77,165 81,115" fill="url(#iv)" opacity=".78"/><circle cx="120" cy="145" r="25" fill="#09080a"/>${eye(p,120,145,5)}</g>`;
+  if(t==='burrow')return `<g><polygon points="120,92 76,132 69,199 105,225 145,220 173,180 157,122" fill="#09080a"/><polygon points="89,138 120,112 151,135 140,182 105,185" fill="url(#cloth)" opacity=".8"/>${face(p,'blank')}<path d="M78 184L43 218M160 184L197 217" stroke="${p[2]}" stroke-width="10" opacity=".32"/></g>`;
+  return `<g><polygon points="120,111 81,210 107,196 120,238 134,196 160,210" fill="#09080a"/>${face(p,'blank')}</g>` }
+ function art(id,school='Veladura',wake=0){const p=P[school]||P.Veladura,[t,k]=D[id]||D.figurant,s=seed(id);let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300">${defs(p,wake)}${stage(p,s,wake)}${prop(p,k)}${body(p,t,k)}${wake?`<g fill="none" stroke="${p[4]}" stroke-width="1.6" opacity="${Math.min(.6,.22+wake*.08)}"><path d="M45 79l18 16-9 23 18 17-11 28M195 78l-17 18 9 24-17 18 9 27M92 161l17-13 14 10 21-15"/></g>`:''}<path d="M52 264H188" stroke="${p[3]}" stroke-opacity=".08"/></svg>`;return enc(svg)}
+ return{art,cardArt:c=>art(c?.species,c?.tribe||'Figurante',c?.wake||0)};
+})();
