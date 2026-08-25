@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#090706">
-<title>The Last Menagerie — Director's Cut</title>
-<link rel="stylesheet" href="css/game.css">
+<title>The Last Menagerie — Grand Revision</title>
+<link rel="stylesheet" href="game.css">
+<link rel="stylesheet" href="grand.css">
 </head>
 <body>
 <div id="app">
@@ -67,18 +68,9 @@
   <section id="battleScreen" class="screen battle-screen hidden">
     <div class="table-grain"></div>
     <header class="battle-top">
-      <div>
-        <span class="tiny-label">Sangre</span>
-        <b id="bloodTxt">0</b>
-      </div>
-      <div>
-        <span class="tiny-label">Huesos</span>
-        <b id="bonesTxt">0</b>
-      </div>
-      <div class="battle-title">
-        <b id="battleTitle">ENCUENTRO</b>
-        <span id="turnTxt">Turno 1</span>
-      </div>
+      <div><span class="tiny-label">Sangre</span><b id="bloodTxt">0</b></div>
+      <div><span class="tiny-label">Huesos</span><b id="bonesTxt">0</b></div>
+      <div class="battle-title"><b id="battleTitle">ENCUENTRO</b><span id="turnTxt">Turno 1</span></div>
       <button id="inspectBtn" class="square">?</button>
     </header>
 
@@ -99,10 +91,7 @@
     </div>
 
     <div id="contextBar" class="context-bar">
-      <div>
-        <b id="contextTitle">Selecciona una carta</b>
-        <span id="contextText">Las cartas jugables están resaltadas.</span>
-      </div>
+      <div><b id="contextTitle">Selecciona una carta</b><span id="contextText">Las cartas jugables están resaltadas.</span></div>
       <button id="sacrificeBtn" class="danger hidden">SACRIFICAR</button>
       <button id="cancelBtn" class="hidden">CANCELAR</button>
       <button id="endTurnBtn" class="primary compact">FIN TURNO</button>
@@ -129,17 +118,13 @@
   </section>
 
   <div id="scene" class="scene hidden">
-    <div>
-      <span id="sceneEyebrow"></span>
-      <h2 id="sceneTitle"></h2>
-      <p id="sceneQuote"></p>
-      <small id="sceneRule"></small>
-    </div>
+    <div><span id="sceneEyebrow"></span><h2 id="sceneTitle"></h2><p id="sceneQuote"></p><small id="sceneRule"></small></div>
   </div>
 
+  <div id="awakenOverlay" class="awaken-overlay hidden"></div>
   <div id="modal" class="modal hidden"></div>
 </div>
-<script src="js/data.js"></script>
-<script src="js/game.js"></script>
+<script src="art.js"></script>
+<script src="boot.js"></script>
 </body>
 </html>
