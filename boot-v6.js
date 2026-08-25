@@ -1,8 +1,7 @@
 (async()=>{
-const V6=window.MENAGERIE_V6;
+const V6=window.MENAGERIE_V6;window.V6=V6;
 function replaceOrThrow(src,a,b,label){if(!src.includes(a))throw new Error('V6 no pudo aplicar: '+label);return src.replace(a,b)}
 window.__MENAGERIE_V6_PATCH__=function(src){
- src=replaceOrThrow(src,"SAVE='menagerie_grand_theatre_v4'","SAVE='menagerie_sublime_theatre_v6'",'guardado v6');
  src=replaceOrThrow(src,"['ashwing','iron_cub','red_hare','moss_boar','hollow_crow','rune_crab','marrow_wolf','lantern_fox'].forEach(id=>run.deck.push(cardFrom(id)))","V6.starter.forEach(id=>run.deck.push(cardFrom(id)))",'mazo inicial de cuatro');
  src=replaceOrThrow(src,"function nodeType(r){if(r===1)return'hunt';if(r===2)return rand(['hunt','hunt','camp','archive','graft']);if(r===3)return rand(['hunt','alpha','camp','archive','graft','merchant','reliquary']);return rand(['hunt','alpha','merchant','reliquary','altar','omen','camp'])}","function nodeType(r){if(r===1)return'hunt';if(r===2)return rand(['camp','archive','graft','omen','archive']);if(r===3)return rand(['hunt','hunt','alpha']);return rand(['merchant','reliquary','altar','omen','camp','graft','archive','alpha'])}",'dramaturgia del mapa');
  src=replaceOrThrow(src,"pool=boss?boss.pool:D.beasts.map(x=>x.id)","pool=boss?boss.pool:D.beasts.filter(x=>(x.unlockTier||1)<=run.act).map(x=>x.id)",'desbloqueo rival');
