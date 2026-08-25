@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#070608">
-<title>The Last Menagerie — Sublime Cut</title>
-<link rel="stylesheet" href="grand-v4.css?rev=5.0.0">
-<link rel="stylesheet" href="grand-v5.css?rev=5.0.0">
+<title>The Last Menagerie — Sublime Theatre</title>
+<link rel="stylesheet" href="grand-v4.css?rev=6.0.0">
+<link rel="stylesheet" href="grand-v5.css?rev=6.0.0">
+<link rel="stylesheet" href="grand-v6.css?rev=6.0.0">
 </head>
 <body>
 <div id="app">
@@ -17,10 +18,10 @@
     <div class="proscenium">
       <div class="curtain left"></div><div class="curtain right"></div>
       <div class="menu-stage">
-        <div class="mask-seal">V</div>
+        <div class="mask-seal">VI</div>
         <div class="eyebrow">UNA OBRA ROGUELIKE PARA UN TEATRO QUE NO DEBERÍA EXISTIR</div>
         <h1>THE LAST<br><em>MENAGERIE</em></h1>
-        <p class="lead">Dirige una compañía de máscaras, autómatas y presencias imposibles. Cada intérprete recuerda sus escenas, despierta y termina encarnando un papel irrepetible.</p>
+        <p class="lead">Cuatro intérpretes levantan el telón. El resto deberá ganarse su papel entre máscaras, autómatas y presencias imposibles mientras la obra aprende a recordarte.</p>
         <div class="menu-actions">
           <button id="newRunBtn" class="primary hero-btn"><span>LEVANTAR EL TELÓN</span><small>Nueva representación</small></button>
           <button id="rulesBtn"><span>REGLAS</span><small>Cómo dirigir la obra</small></button>
@@ -55,7 +56,7 @@
     <main class="map-main">
       <section id="actCard" class="act-card"></section>
       <section class="map-card">
-        <div class="section-title"><span>RECORRIDO DEL ACTO</span><small>Apertura · desarrollo · clímax</small></div>
+        <div class="section-title"><span>RECORRIDO DEL ACTO</span><small>Escena · interludio · conflicto · clímax</small></div>
         <div id="mapWrap" class="map-wrap">
           <svg id="pathSvg" viewBox="0 0 360 600" aria-label="Mapa de ruta"></svg>
           <div id="nodeLayer" class="node-layer"></div>
@@ -68,14 +69,15 @@
   <section id="battleScreen" class="screen battle-screen hidden">
     <div class="stage-depth"><div class="back-curtain"></div><div class="stage-light"></div></div>
     <header class="battle-top">
-      <div class="resource-pill focus-pill"><span class="tiny-label">FOCO</span><div class="resource-row"><div id="focusIcons" class="resource-icons"></div><b id="focusTxt">0</b></div></div>
-      <div class="resource-pill echo-pill"><span class="tiny-label">ECO</span><div class="resource-row"><div id="echoIcons" class="resource-icons"></div><b id="echoTxt">0</b></div></div>
+      <div class="resource-pill focus-pill"><span class="tiny-label">FOCO</span><div class="resource-row"><div id="focusIcons" class="resource-icons"></div><b id="focusTxt">0/7</b></div></div>
+      <div class="resource-pill echo-pill"><span class="tiny-label">ECO</span><div class="resource-row"><div id="echoIcons" class="resource-icons"></div><b id="echoTxt">0/9</b></div></div>
       <div class="battle-title"><b id="battleTitle">ENSAYO</b><span id="turnTxt">Turno 1</span></div>
       <button id="inspectBtn" class="square">?</button>
     </header>
 
     <div class="pressure-row"><span>CEDE</span><div class="pressure-track"><div id="pressureFill"></div><div id="pressureKnob"></div></div><div id="cadence" class="cadence" aria-label="Cadencia"></div></div>
     <div id="bossRuleChip" class="boss-rule-chip hidden"></div>
+    <div id="bossPortrait" class="hidden"></div>
 
     <main class="battlefield">
       <div class="side-label">COMPAÑÍA RIVAL</div>
@@ -105,9 +107,10 @@
   <div id="awakenOverlay" class="awaken-overlay hidden"></div>
   <div id="modal" class="modal hidden"></div>
 </div>
-<script src="data-v4.js?rev=5.0.0"></script>
-<script src="balance-v5.js?rev=5.0.0"></script>
-<script src="art-v5.js?rev=5.0.0"></script>
-<script src="boot-v5.js?rev=5.0.0"></script>
+<script src="data-v4.js?rev=6.0.0"></script>
+<script src="balance-v5.js?rev=6.0.0"></script>
+<script src="data-v6.js?rev=6.0.0"></script>
+<script src="art-v6.js?rev=6.0.0"></script>
+<script src="boot-v6.js?rev=6.0.0"></script>
 </body>
 </html>
