@@ -8,12 +8,14 @@
   saint_shell:4,threshold_stag:4,black_ram:4,mirror_swan:4,thorn_elk:4,mourning_bat:4,
   bell_golem:5,pale_seraph:5,porcelain_ape:5
  };
- const sigilWeight={swift:.8,venom:1.15,guardian:.8,brood:.9,hunger:1.05,echo:.7,thorns:.7,leech:.9,ward:1.05,requiem:.65,duet:.7,precise:.75};
+ const sigilWeight={swift:.9,venom:1.2,guardian:.85,brood:.95,hunger:1.05,echo:.75,thorns:.75,leech:.95,ward:1.1,requiem:.7,duet:.75,precise:.8};
  const fixed={ashwing:1,iron_cub:1,red_hare:1,rune_crab:1};
+ const starterTune={ashwing:[1,3],iron_cub:[1,4],red_hare:[2,2],rune_crab:[1,4]};
  for(const b of D.beasts){
    b.unlockTier=tiers[b.id]||3;
-   b.power=+(b.atk*1.08+b.hp*.48+b.sigils.reduce((s,x)=>s+(sigilWeight[x]||.65),0)).toFixed(2);
-   let c=b.costType==='echo'?Math.round(b.power/2.65):Math.round((b.power-1.2)/2.8);
+   if(starterTune[b.id]){b.atk=starterTune[b.id][0];b.hp=starterTune[b.id][1]}
+   b.power=+(b.atk*1.15+b.hp*.68+b.sigils.reduce((s,x)=>s+(sigilWeight[x]||.7),0)).toFixed(2);
+   let c=b.costType==='echo'?Math.round(b.power/2.45):Math.round((b.power-1)/2.5);
    c=Math.max(b.costType==='echo'?2:1,Math.min(b.costType==='echo'?7:5,c));
    if(fixed[b.id])c=fixed[b.id];
    b.cost=c;
