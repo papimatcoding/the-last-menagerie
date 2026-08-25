@@ -1,37 +1,32 @@
 (async()=>{
-  async function gunzipText(path){
-    const url=`${path}?rev=echo-stage-3-1`;
-    const res=await fetch(url,{cache:'no-store'});
-    if(!res.ok)throw new Error(`${path}: GitHub Pages respondió ${res.status}. Recarga en unos segundos.`);
-    let text=(await res.text()).trim();
-
-    // GitHub Pages/CDN can briefly serve cached or decorated responses after a deploy.
-    // Extract only the gzip base64 payload and ignore whitespace/foreign characters.
-    const start=text.indexOf('H4sI');
-    if(start<0){
-      const preview=text.slice(0,80).replace(/\s+/g,' ');
-      throw new Error(`${path}: Pages no está sirviendo el bundle todavía. Inicio recibido: ${preview}`);
-    }
-    text=text.slice(start).replace(/\s+/g,'');
-    const padding=text.indexOf('=');
-    if(padding>=0)text=text.slice(0,padding+1);
-    text=text.replace(/[^A-Za-z0-9+/=]/g,'');
-    while(text.length%4)text+='=';
-
-    let raw;
-    try{raw=atob(text)}catch(e){throw new Error(`${path}: el bundle publicado está corrupto o incompleto. Fuerza una recarga de la página.`)}
-    const bytes=new Uint8Array(raw.length);
-    for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
-    if(!('DecompressionStream' in window))throw new Error('Necesitas un navegador moderno. Usa Chrome, Edge o Firefox actualizado.');
-    try{
-      const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-      return await new Response(stream).text();
-    }catch(e){
-      throw new Error(`${path}: el archivo llegó incompleto desde GitHub Pages. Recarga la página para obtener el despliegue nuevo.`)
-    }
+  async function fetchChunk(i){
+    const path=`bundle-v3-${i}.txt`;
+    const res=await fetch(`${path}?rev=echo-stage-3-2`,{cache:'no-store'});
+    if(!res.ok)throw new Error(`${path}: GitHub Pages respondió ${res.status}. Espera unos segundos y recarga.`);
+    const text=(await res.text()).replace(/\s+/g,'').replace(/[^A-Za-z0-9+/=]/g,'');
+    if(!text)throw new Error(`${path}: el fragmento publicado está vacío.`);
+    return text;
   }
 
-  const bundle=await gunzipText('bundle-v3.gz.b64');
+  const parts=await Promise.all(Array.from({length:8},(_,i)=>fetchChunk(i)));
+  let text=parts.join('');
+  if(!text.startsWith('H4sI'))throw new Error('El bundle reconstruido no tiene una cabecera gzip válida.');
+  while(text.length%4)text+='=';
+
+  let raw;
+  try{raw=atob(text)}catch(e){throw new Error('Los fragmentos publicados no forman un Base64 válido. Recarga en unos segundos.');}
+  const bytes=new Uint8Array(raw.length);
+  for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
+  if(!('DecompressionStream' in window))throw new Error('Necesitas un navegador moderno. Usa Chrome, Edge o Firefox actualizado.');
+
+  let bundle;
+  try{
+    const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    bundle=await new Response(stream).text();
+  }catch(e){
+    throw new Error('Los fragmentos llegaron completos, pero el gzip no pudo descomprimirse. Recarga una vez más.');
+  }
+
   (0,eval)(bundle+'\n//# sourceURL=menagerie-v3.js');
 })().catch(err=>{
   console.error(err);
