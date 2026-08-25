@@ -2,130 +2,109 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#090706">
-<title>The Last Menagerie — Echo Stage</title>
-<link rel="stylesheet" href="game.css">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#070608">
+<title>The Last Menagerie — Grand Theatre</title>
+<link rel="stylesheet" href="grand-v4.css?rev=4.0.0">
 </head>
 <body>
 <div id="app">
   <canvas id="fx"></canvas>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
 
-  <section id="menuScreen" class="screen">
-    <div class="menu-shell">
-      <div class="seal">IV</div>
-      <div class="eyebrow">A ritual creature-card roguelike</div>
-      <h1>THE LAST<br><em>MENAGERIE</em></h1>
-      <p class="lead">Dirige un reparto de presencias que recuerdan sus escenas, despiertan, heredan gestos de otras criaturas y terminan convirtiéndose en personajes que solo existen en esa run.</p>
-      <div class="metrics">
-        <div><strong id="bestDepth">0</strong><span>Profundidad</span></div>
-        <div><strong id="bestBoss">0</strong><span>Guardianes</span></div>
-        <div><strong id="metaAsh">0</strong><span>Ceniza</span></div>
-      </div>
-      <button id="newRunBtn" class="primary">LEVANTAR EL TELÓN</button>
-      <div class="menu-row">
-        <button id="rulesBtn">REGLAS</button>
-        <button id="backstageBtn">CAMERINO</button>
-        <button id="soundBtn">SONIDO: NO</button>
+  <section id="menuScreen" class="screen menu-screen">
+    <div class="proscenium">
+      <div class="curtain left"></div><div class="curtain right"></div>
+      <div class="menu-stage">
+        <div class="mask-seal">IV</div>
+        <div class="eyebrow">UNA OBRA ROGUELIKE PARA UN TEATRO QUE NO DEBERÍA EXISTIR</div>
+        <h1>THE LAST<br><em>MENAGERIE</em></h1>
+        <p class="lead">Dirige un reparto de presencias de porcelana, humo y madera. Cada una recuerda sus escenas, despierta y termina interpretando un papel que solo puede existir en esa run.</p>
+        <div class="menu-actions">
+          <button id="newRunBtn" class="primary hero-btn"><span>LEVANTAR EL TELÓN</span><small>Nueva representación</small></button>
+          <button id="rulesBtn"><span>REGLAS</span><small>Cómo dirigir la obra</small></button>
+          <button id="backstageBtn"><span>CAMERINO</span><small>Mementos permanentes</small></button>
+          <button id="soundBtn"><span>SONIDO: NO</span><small>Ambiente y señales</small></button>
+        </div>
+        <div class="menu-metrics">
+          <div><span>PROFUNDIDAD</span><strong id="bestDepth">0</strong></div>
+          <div><span>MAESTROS</span><strong id="bestBoss">0</strong></div>
+          <div><span>CENIZA</span><strong id="metaAsh">0</strong></div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="oathScreen" class="screen hidden">
-    <div class="panel">
-      <div class="eyebrow">Prólogo</div>
-      <h2>Elige una manera de dirigir</h2>
-      <p class="quote">«Una criatura no necesita obedecerte para formar parte de tu obra.»</p>
+    <div class="panel oath-panel">
+      <div class="eyebrow">PRÓLOGO · ELIGE UNA MANERA DE DIRIGIR</div>
+      <h2>¿Qué clase de director entra esta noche?</h2>
+      <p class="quote">«Una presencia no necesita obedecerte para formar parte de tu obra.»</p>
       <div id="oathGrid" class="choice-grid"></div>
     </div>
   </section>
 
   <section id="mapScreen" class="screen map-screen hidden">
     <header class="topbar">
-      <b>THE MENAGERIE</b><span class="spacer"></span>
+      <div class="brand-mini">THE LAST MENAGERIE</div><span class="spacer"></span>
       <span>ACTO <b id="actNum">I</b></span>
-      <span>FRAG. <b id="fragTxt">0</b></span>
+      <span>FRAGMENTOS <b id="fragTxt">0</b></span>
       <button id="deckBtn" class="square">REPARTO</button>
     </header>
     <main class="map-main">
       <section id="actCard" class="act-card"></section>
       <section class="map-card">
-        <div class="section-title">Recorrido del Acto</div>
+        <div class="section-title"><span>RECORRIDO DEL ACTO</span><small>Apertura · desarrollo · clímax</small></div>
         <div id="mapWrap" class="map-wrap">
           <svg id="pathSvg" viewBox="0 0 360 600" aria-label="Mapa de ruta"></svg>
           <div id="nodeLayer" class="node-layer"></div>
         </div>
       </section>
-      <section class="curator-note"><span>Anotación encontrada</span><p id="curatorLine"></p></section>
+      <section class="curator-note"><span>ANOTACIÓN DEL DIRECTOR</span><p id="curatorLine"></p></section>
     </main>
   </section>
 
   <section id="battleScreen" class="screen battle-screen hidden">
-    <div class="table-grain"></div>
+    <div class="stage-depth"><div class="back-curtain"></div><div class="stage-light"></div></div>
     <header class="battle-top">
-      <div class="resource-pill focus-pill">
-        <span class="tiny-label">Foco</span>
-        <div class="resource-row"><div id="focusIcons" class="resource-icons"></div><b id="focusTxt">0</b></div>
-      </div>
-      <div class="resource-pill echo-pill">
-        <span class="tiny-label">Eco</span>
-        <div class="resource-row"><div id="echoIcons" class="resource-icons"></div><b id="echoTxt">0</b></div>
-      </div>
+      <div class="resource-pill focus-pill"><span class="tiny-label">FOCO</span><div class="resource-row"><div id="focusIcons" class="resource-icons"></div><b id="focusTxt">0</b></div></div>
+      <div class="resource-pill echo-pill"><span class="tiny-label">ECO</span><div class="resource-row"><div id="echoIcons" class="resource-icons"></div><b id="echoTxt">0</b></div></div>
       <div class="battle-title"><b id="battleTitle">ENSAYO</b><span id="turnTxt">Turno 1</span></div>
       <button id="inspectBtn" class="square">?</button>
     </header>
 
-    <div class="pressure-row">
-      <span>CEDE</span>
-      <div class="pressure-track"><div id="pressureFill"></div><div id="pressureKnob"></div></div>
-      <div id="cadence" class="cadence" aria-label="Cadencia"></div>
-    </div>
+    <div class="pressure-row"><span>CEDE</span><div class="pressure-track"><div id="pressureFill"></div><div id="pressureKnob"></div></div><div id="cadence" class="cadence" aria-label="Cadencia"></div></div>
 
     <main class="battlefield">
+      <div class="side-label">COMPAÑÍA RIVAL</div>
       <div id="enemySide" class="side enemy-side"></div>
+      <div class="stage-divider"><span>ESCENA</span></div>
       <div id="playerSide" class="side player-side"></div>
+      <div class="side-label player-label">TU REPARTO</div>
     </main>
 
     <div id="contextBar" class="context-bar">
-      <div><b id="contextTitle">Tu escena</b><span id="contextText">Toca una carta para darle entrada.</span></div>
-      <button id="retireBtn" class="hidden">RETIRAR</button>
+      <div><b id="contextTitle">Tu escena</b><span id="contextText">Da entrada a una presencia, retira a un intérprete o cierra el turno.</span></div>
+      <button id="retireBtn" class="hidden retire-btn">RETIRAR</button>
       <button id="cancelBtn" class="hidden">CANCELAR</button>
       <button id="endTurnBtn" class="primary compact">CERRAR TURNO</button>
     </div>
 
     <div id="hand" class="hand"></div>
     <div id="toast" class="toast"></div>
-    <div id="cadenzaFlash" class="cadenza-flash">IV · CADENZA</div>
+    <div id="cadenzaFlash" class="cadenza-flash"><small>CUARTO GOLPE</small>IV · CADENZA</div>
   </section>
 
   <section id="deathScreen" class="screen hidden">
-    <div class="panel death-panel">
-      <div class="eyebrow">Fin de la representación</div>
-      <h2>La escena ha dejado de obedecerte.</h2>
-      <p id="deathQuote" class="quote"></p>
-      <div class="metrics">
-        <div><strong id="deathDepth">0</strong><span>Profundidad</span></div>
-        <div><strong id="deathBosses">0</strong><span>Guardianes</span></div>
-        <div><strong id="deathAsh">0</strong><span>Ceniza</span></div>
-      </div>
-      <button id="restartBtn" class="primary">OTRA REPRESENTACIÓN</button>
-      <button id="homeBtn">VOLVER AL MENÚ</button>
-    </div>
+    <div class="panel death-panel"><div class="eyebrow">FIN DE LA REPRESENTACIÓN</div><h2>La escena ha dejado de obedecerte.</h2><p id="deathQuote" class="quote"></p><div class="menu-metrics"><div><span>PROFUNDIDAD</span><strong id="deathDepth">0</strong></div><div><span>MAESTROS</span><strong id="deathBosses">0</strong></div><div><span>CENIZA</span><strong id="deathAsh">0</strong></div></div><button id="restartBtn" class="primary">OTRA REPRESENTACIÓN</button><button id="homeBtn">VOLVER AL MENÚ</button></div>
   </section>
 
-  <div id="scene" class="scene hidden">
-    <div>
-      <span id="sceneEyebrow"></span>
-      <h2 id="sceneTitle"></h2>
-      <p id="sceneQuote"></p>
-      <small id="sceneRule"></small>
-      <div class="scene-continue">Toca cuando hayas terminado de leer</div>
-    </div>
-  </div>
-
+  <div id="scene" class="scene hidden"><div class="scene-sheet"><span id="sceneEyebrow"></span><h2 id="sceneTitle"></h2><p id="sceneQuote"></p><small id="sceneRule"></small><div class="scene-continue">TOCA CUANDO HAYAS TERMINADO DE LEER</div></div></div>
   <div id="awakenOverlay" class="awaken-overlay hidden"></div>
   <div id="modal" class="modal hidden"></div>
 </div>
-<script src="boot-v3.js?rev=echo-stage-3-2"></script>
+<script src="data-v4.js?rev=4.0.0"></script>
+<script src="art-v4.js?rev=4.0.0"></script>
+<script src="game-v4.js?rev=4.0.0"></script>
 </body>
 </html>
